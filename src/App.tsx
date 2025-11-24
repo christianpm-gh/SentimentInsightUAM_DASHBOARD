@@ -9,7 +9,7 @@ import WordCloudComp from './components/WordCloudComp';
 
 function App() {
   const [scopeParams, setScopeParams] = useState<ScopeParams>({});
-  const { data: metrics, isLoading, error } = useMetrics(scopeParams);
+  const { data: metrics, isLoading, isError } = useMetrics(scopeParams);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -32,7 +32,7 @@ function App() {
           </div>
         )}
 
-        {error && (
+        {isError && (
           <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
             <p>Error loading dashboard data. Please make sure the API is running.</p>
           </div>
