@@ -6,15 +6,32 @@ export const useMetrics = (params: ScopeParams = {}) => {
   return useQuery<DashboardMetrics>(
     ['metrics', params],
     async () => {
-      const queryParams = new URLSearchParams();
-      if (params.scope && params.value) {
-        queryParams.append('scope', params.scope);
-        queryParams.append('value', params.value);
+      let url = '';
+      if (params.scope === 'professor' && params.value) {
+        url = `/metrics/professor/${params.value}`;
+      } else if (params.scope === 'department' && params.value) {
+        url = `/metrics/department/${params.value}`;
+      } else if (params.scope === 'course' && params.value) {
+        url = `/metrics/course/${params.value}`;
+      } else {
+        // No valid scope selected, return null or handle as needed
+        return null as unknown as DashboardMetrics;
       }
       
-      const url = `/api/dashboard/metrics${queryParams.toString() ? `?${queryParams.toString()}` : ''}`;
-      const response = await apiClient.get<DashboardMetrics>(url);
-      return response.data;
+      const response = await apiClient.get<any>(url);
+      const data = response.data;
+
+      return {
+        total_comments: data.stats.total_opinions,
+        average_sentiment_score: data.stats.average_rating,
+        sentiment_distribution: [
+          { sentiment: 'positive', count: data.stats.sentiment_distribution.positive },
+          { sentiment: 'neutral', count: data.stats.sentiment_distribution.neutral },
+          { sentiment: 'negative', count: data.stats.sentiment_distribution.negative },
+        ],
+        sentiment_trends: data.trends,
+        top_words: data.word_cloud,
+      } as DashboardMetrics;
     },
     {
       staleTime: 5 * 60 * 1000, // 5 minutes

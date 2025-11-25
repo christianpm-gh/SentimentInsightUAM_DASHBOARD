@@ -5,9 +5,8 @@ export interface SentimentCount {
 
 export interface TrendPoint {
   date: string;
-  positive: number;
-  neutral: number;
-  negative: number;
+  sentiment_score: number;
+  count: number;
 }
 
 export interface WordFrequency {
