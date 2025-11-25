@@ -1,4 +1,5 @@
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
+import { useState } from 'react';
+import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip, Sector } from 'recharts';
 import { SentimentCount } from '../types';
 import { useTheme } from '../context/ThemeContext';
 
@@ -20,6 +21,7 @@ const LABELS: Record<string, string> = {
 
 const SentimentPie = ({ data }: SentimentPieProps) => {
   const { isDark } = useTheme();
+  const [activeIndex, setActiveIndex] = useState<number | undefined>(undefined);
 
   const chartData = data.map(item => ({
     ...item,
@@ -68,6 +70,57 @@ const SentimentPie = ({ data }: SentimentPieProps) => {
     );
   };
 
+  const renderActiveShape = (props: any) => {
+    const { cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle, fill, percent } = props;
+    const RADIAN = Math.PI / 180;
+    const expandOffset = 8;
+    const sin = Math.sin(-midAngle * RADIAN);
+    const cos = Math.cos(-midAngle * RADIAN);
+    const mx = cx + expandOffset * cos;
+    const my = cy + expandOffset * sin;
+    const labelRadius = innerRadius + (outerRadius - innerRadius) * 0.5 + expandOffset;
+    const labelX = cx + labelRadius * cos;
+    const labelY = cy + labelRadius * sin;
+
+    return (
+      <g>
+        <Sector
+          cx={mx}
+          cy={my}
+          innerRadius={innerRadius}
+          outerRadius={outerRadius + 4}
+          startAngle={startAngle}
+          endAngle={endAngle}
+          fill={fill}
+          stroke={isDark ? '#1e293b' : '#ffffff'}
+          strokeWidth={2}
+          style={{ filter: 'drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15))' }}
+        />
+        {percent >= 0.05 && (
+          <text
+            x={labelX}
+            y={labelY}
+            fill="white"
+            textAnchor="middle"
+            dominantBaseline="central"
+            className="font-semibold text-sm"
+            style={{ fontFamily: 'JetBrains Mono' }}
+          >
+            {`${(percent * 100).toFixed(0)}%`}
+          </text>
+        )}
+      </g>
+    );
+  };
+
+  const onPieEnter = (_: any, index: number) => {
+    setActiveIndex(index);
+  };
+
+  const onPieLeave = () => {
+    setActiveIndex(undefined);
+  };
+
   return (
     <div className="card p-6 animate-fade-in-up hover-lift" style={{ animationDelay: '200ms' }}>
       <div className="flex items-center gap-3 mb-6">
@@ -96,7 +149,9 @@ const SentimentPie = ({ data }: SentimentPieProps) => {
             cx="50%"
             cy="50%"
             labelLine={false}
-            label={renderCustomLabel}
+            label={activeIndex === undefined ? renderCustomLabel : undefined}
+            activeIndex={activeIndex}
+            activeShape={renderActiveShape}
             outerRadius={120}
             innerRadius={60}
             paddingAngle={3}
@@ -105,6 +160,8 @@ const SentimentPie = ({ data }: SentimentPieProps) => {
             animationBegin={0}
             animationDuration={800}
             animationEasing="ease-out"
+            onMouseEnter={onPieEnter}
+            onMouseLeave={onPieLeave}
           >
             {chartData.map((entry, index) => (
               <Cell 
@@ -112,7 +169,7 @@ const SentimentPie = ({ data }: SentimentPieProps) => {
                 fill={entry.fill}
                 stroke={isDark ? '#1e293b' : '#ffffff'}
                 strokeWidth={2}
-                className="transition-all duration-300 hover:opacity-80"
+                style={{ cursor: 'pointer', transition: 'all 0.2s ease-out' }}
               />
             ))}
           </Pie>

@@ -6,6 +6,7 @@ import ThemeToggle from './components/ThemeToggle';
 import ScopeSelector from './components/ScopeSelector';
 import KPICards from './components/KPICards';
 import SentimentPie from './components/SentimentPie';
+import CategoryPies from './components/CategoryPies';
 import TrendChart from './components/TrendChart';
 import WordCloudComp from './components/WordCloudComp';
 
@@ -132,6 +133,13 @@ function Dashboard() {
               <SentimentPie data={metrics.sentiment_distribution} />
               <TrendChart data={metrics.sentiment_trends} />
             </section>
+
+            {/* Gráficas de Categorías (Calidad Didáctica, Empatía, Método de Evaluación) */}
+            {metrics.categories && (
+              <section>
+                <CategoryPies categories={metrics.categories} />
+              </section>
+            )}
 
             {/* Nube de palabras */}
             <section>

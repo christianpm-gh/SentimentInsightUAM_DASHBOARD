@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 import apiClient from '../api/client';
-import { DashboardMetrics, ScopeParams } from '../types';
+import { DashboardMetrics, ScopeParams, CategoriesMetrics } from '../types';
 
 export const useMetrics = (params: ScopeParams = {}) => {
   return useQuery<DashboardMetrics>(
@@ -21,6 +21,12 @@ export const useMetrics = (params: ScopeParams = {}) => {
       const response = await apiClient.get<any>(url);
       const data = response.data;
 
+      // Mapear las categorías si existen
+      let categories: CategoriesMetrics | undefined = undefined;
+      if (data.categories) {
+        categories = data.categories;
+      }
+
       return {
         total_comments: data.stats.total_opinions,
         average_sentiment_score: data.stats.average_rating,
@@ -29,6 +35,7 @@ export const useMetrics = (params: ScopeParams = {}) => {
           { sentiment: 'neutral', count: data.stats.sentiment_distribution.neutral },
           { sentiment: 'negative', count: data.stats.sentiment_distribution.negative },
         ],
+        categories,
         sentiment_trends: data.trends,
         top_words: data.word_cloud,
       } as DashboardMetrics;
