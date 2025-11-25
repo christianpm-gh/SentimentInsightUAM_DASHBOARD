@@ -63,7 +63,7 @@ const WordCloudComp = ({ words }: WordCloudCompProps) => {
       </div>
 
       <div className="wordcloud-container bg-gradient-to-br from-dark-50 to-dark-100 dark:from-dark-800 dark:to-dark-900 rounded-xl p-4">
-        <div style={{ height: '400px', width: '100%' }}>
+        <div className="w-full h-64 sm:h-80 md:h-96">
           {words && words.length > 0 ? (
             <ReactWordcloud words={words} options={options} />
           ) : (

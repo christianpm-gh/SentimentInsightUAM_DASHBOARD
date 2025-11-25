@@ -88,8 +88,9 @@ const SentimentPie = ({ data }: SentimentPieProps) => {
         </div>
       </div>
 
-      <ResponsiveContainer width="100%" height={320}>
-        <PieChart>
+      <div className="w-full h-64 sm:h-72 md:h-80">
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart>
           <Pie
             data={chartData}
             cx="50%"
@@ -125,8 +126,9 @@ const SentimentPie = ({ data }: SentimentPieProps) => {
               </span>
             )}
           />
-        </PieChart>
-      </ResponsiveContainer>
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
 
       {/* Leyenda detallada */}
       <div className="grid grid-cols-3 gap-4 mt-4 pt-4 border-t border-dark-100 dark:border-dark-700">

@@ -20,7 +20,7 @@ function Dashboard() {
       {/* Header */}
       <header className="sticky top-0 z-50 backdrop-blur-lg bg-white/80 dark:bg-dark-900/80 
                          border-b border-dark-100 dark:border-dark-800 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 py-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               {/* Logo */}
@@ -59,7 +59,7 @@ function Dashboard() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+      <main className="w-full px-4 py-8 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
         {/* Filtros */}
         <section className="mb-8">
           <ScopeSelector onScopeChange={setScopeParams} />
@@ -128,7 +128,7 @@ function Dashboard() {
             </section>
 
             {/* Gráficos principales */}
-            <section className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <section className="grid grid-cols-1 xl:grid-cols-2 gap-6 md:gap-8">
               <SentimentPie data={metrics.sentiment_distribution} />
               <TrendChart data={metrics.sentiment_trends} />
             </section>
@@ -143,14 +143,18 @@ function Dashboard() {
 
       {/* Footer */}
       <footer className="border-t border-dark-100 dark:border-dark-800 mt-12">
-        <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
+        <div className="w-full px-4 py-6 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-sm text-dark-500 dark:text-dark-400">
               © 2024 SentimentInsight UAM. Análisis de sentimientos para la mejora continua.
             </p>
             <div className="flex items-center gap-4">
-              <span className="text-xs text-dark-400 dark:text-dark-500">
-                Desarrollado con 💜 usando React + FastAPI
+              <span className="text-xs text-dark-400 dark:text-dark-500 flex items-center gap-2">
+                Desarrollado con
+                <svg className="w-4 h-4 text-accent-500" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+                usando React + FastAPI
               </span>
             </div>
           </div>
