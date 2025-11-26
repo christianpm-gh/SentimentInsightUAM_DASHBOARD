@@ -200,6 +200,14 @@ La documentación completa está organizada en los siguientes archivos:
 
 ### Documentación Técnica
 
+- **[docs/SETUP.md](./docs/SETUP.md)** - Guía de setup completo
+  - Requisitos del sistema
+  - Instalación de prerrequisitos (Node.js, Git, etc.)
+  - Configuración del backend
+  - Configuración del dashboard
+  - Verificación del setup
+  - Problemas comunes y soluciones
+
 - **[docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)** - Arquitectura del sistema
   - Visión general del ecosistema
   - Diagrama de capas y componentes
@@ -221,6 +229,14 @@ La documentación completa está organizada en los siguientes archivos:
   - Flujos de datos
   - Manejo de errores
   - Caché y optimización
+
+- **[docs/WORKFLOWS.md](./docs/WORKFLOWS.md)** - Flujos críticos del sistema
+  - Flujo de inicialización
+  - Flujo de filtrado jerárquico
+  - Flujo de obtención de métricas
+  - Flujo de cambio de tema
+  - Flujo de manejo de errores
+  - Flujo de cache de datos
 
 ### Documentación para IA
 
