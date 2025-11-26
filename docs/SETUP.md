@@ -214,8 +214,10 @@ cd SentimentInsightUAM
 python -m venv venv
 
 # Activar entorno virtual
-# Windows:
+# Windows (Command Prompt):
 venv\Scripts\activate
+# Windows (PowerShell):
+venv\Scripts\Activate.ps1
 # macOS/Linux:
 source venv/bin/activate
 

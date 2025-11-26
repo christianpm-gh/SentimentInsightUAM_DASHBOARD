@@ -433,8 +433,8 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 
 ### Repositorios del Ecosistema
 - Backend API: [SentimentInsightUAM](https://github.com/christianpm-gh/SentimentInsightUAM)
-- Scraper: SentimentInsightUAM_SCRAPER
-- NLP: SentimentInsightUAM_NLP
+- Scraper: SentimentInsightUAM_SCRAPER (próximamente)
+- NLP: SentimentInsightUAM_NLP (próximamente)
 
 ### Tecnologías
 - [React Documentation](https://react.dev/)

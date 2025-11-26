@@ -884,12 +884,16 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # Frontend URL
+    allow_origins=["http://localhost:5173"],  # Frontend URL - específico para desarrollo
+    # Para producción, usar dominio específico:
+    # allow_origins=["https://dashboard.example.com"],
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE"],  # Métodos específicos
+    allow_headers=["Content-Type", "Authorization"],  # Headers específicos
 )
 ```
+
+**Nota de Seguridad:** En producción, evita usar wildcards (`*`) en `allow_origins`, `allow_methods`, o `allow_headers`. Especifica solo los orígenes, métodos y headers necesarios.
 
 ### Problema: Cache No Actualiza
 
