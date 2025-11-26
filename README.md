@@ -1,133 +1,459 @@
 # SentimentInsight UAM Dashboard
 
-A modern, responsive frontend dashboard built with React, TypeScript, Vite, and Tailwind CSS for visualizing sentiment analysis data from the SentimentInsightUAM API.
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](./CHANGELOG.md)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
+[![React](https://img.shields.io/badge/React-18.2-61dafb.svg)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.2-3178c6.svg)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-5.0-646cff.svg)](https://vitejs.dev/)
 
-## Features
+Un dashboard moderno y responsive construido con React, TypeScript, Vite y Tailwind CSS para visualizar análisis de sentimientos de opiniones estudiantiles de la Universidad Autónoma Metropolitana.
 
-- **Scope Filtering**: Filter sentiment data by Department, Professor, or Course
-- **KPI Cards**: Display key metrics including total comments, average sentiment score, and sentiment counts
-- **Sentiment Distribution**: Interactive pie chart showing the distribution of positive, neutral, and negative sentiments
-- **Trend Analysis**: Line chart displaying sentiment trends over time
-- **Word Cloud**: Visual representation of the most frequently occurring words in comments
+> **📌 Nota Importante**: Este es el **frontend** del ecosistema SentimentInsightUAM. Muestra los resultados de los análisis generados por los otros repositorios con prefijo `SentimentInsightUAM_*`.
 
-## Tech Stack
+---
 
-- **React 18** - UI library
-- **TypeScript** - Type-safe JavaScript
-- **Vite** - Fast build tool and dev server
-- **Tailwind CSS** - Utility-first CSS framework
-- **React Query** - Data fetching and caching
-- **Axios** - HTTP client
-- **Recharts** - Charting library
-- **react-wordcloud** - Word cloud visualization
+## 📋 Tabla de Contenidos
 
-## Prerequisites
+- [Características Principales](#-características-principales)
+- [Ecosistema SentimentInsight UAM](#-ecosistema-sentimentinsight-uam)
+- [Tech Stack](#-tech-stack)
+- [Inicio Rápido](#-inicio-rápido)
+- [Documentación](#-documentación)
+- [Estructura del Proyecto](#-estructura-del-proyecto)
+- [Scripts Disponibles](#-scripts-disponibles)
+- [Configuración](#️-configuración)
+- [Contribuir](#-contribuir)
+- [Licencia](#-licencia)
 
-- Node.js 16.x or higher
-- npm or yarn
-- SentimentInsightUAM API running on `http://localhost:8001`
+---
 
-## Installation
+## ✨ Características Principales
 
-1. Clone the repository:
+### 🎨 Interfaz Moderna
+
+- **Diseño Responsivo**: Optimizado para móviles, tablets y desktop
+- **Modo Oscuro/Claro**: Sistema de temas con persistencia de preferencias
+- **Animaciones Fluidas**: Transiciones suaves y efectos visuales atractivos
+- **UI Intuitiva**: Navegación clara y accesible
+
+### 📊 Visualizaciones Interactivas
+
+- **Tarjetas KPI**: Métricas clave con indicadores visuales
+- **Gráficos de Pie**: Distribución de sentimientos con hover effects
+- **Gráfico de Tendencias**: Evolución temporal de sentimientos
+- **Nube de Palabras**: Términos más frecuentes en comentarios
+- **Análisis por Categorías**: 
+  - Calidad Didáctica
+  - Empatía del Profesor
+  - Método de Evaluación
+
+### 🔍 Sistema de Filtrado Jerárquico
+
+- **Filtrado por Departamento**: Vista general de departamentos académicos
+- **Filtrado por Profesor**: Análisis específico por profesor
+- **Filtrado por Materia**: Detalles a nivel de materia individual
+- **Carga Dinámica**: Catálogos actualizados en tiempo real
+
+### ⚡ Rendimiento y Optimización
+
+- **Cache Inteligente**: React Query para gestión eficiente de datos
+- **Hot Module Replacement**: Desarrollo rápido con HMR
+- **Bundle Optimizado**: Build ligero para producción
+- **Code Splitting**: Carga optimizada de componentes
+
+---
+
+## 🌐 Ecosistema SentimentInsight UAM
+
+Este dashboard forma parte de un ecosistema más amplio:
+
+```
+┌──────────────────────────────────────────────────────┐
+│            ECOSISTEMA SentimentInsightUAM            │
+├──────────────────────────────────────────────────────┤
+│                                                      │
+│  SentimentInsightUAM_SCRAPER                        │
+│  └─→ Extracción de opiniones estudiantiles          │
+│         │                                            │
+│         ▼                                            │
+│  SentimentInsightUAM_NLP                            │
+│  └─→ Análisis de sentimientos y categorización      │
+│         │                                            │
+│         ▼                                            │
+│  SentimentInsightUAM (Backend API)                  │
+│  └─→ FastAPI + PostgreSQL                           │
+│         │                                            │
+│         ▼                                            │
+│  SentimentInsightUAM_DASHBOARD  ◄── ESTE REPO      │
+│  └─→ Visualización interactiva                      │
+│                                                      │
+└──────────────────────────────────────────────────────┘
+```
+
+**Repositorios Relacionados:**
+- **SCRAPER**: Extracción automatizada de datos
+- **NLP**: Procesamiento de lenguaje natural y análisis
+- **API Backend**: Almacenamiento y exposición de datos
+- **DASHBOARD**: Este repositorio - visualización frontend
+
+---
+
+## 🛠 Tech Stack
+
+### Core
+
+| Tecnología | Versión | Propósito |
+|-----------|---------|-----------|
+| **React** | 18.2.0 | Framework de UI |
+| **TypeScript** | 5.2.2 | Tipado estático |
+| **Vite** | 5.0.8 | Build tool y dev server |
+
+### Estilos
+
+| Tecnología | Versión | Propósito |
+|-----------|---------|-----------|
+| **Tailwind CSS** | 3.3.6 | Framework CSS utility-first |
+| **PostCSS** | 8.4.32 | Procesamiento CSS |
+| **Autoprefixer** | 10.4.16 | Prefijos de navegadores |
+
+### Estado y Datos
+
+| Tecnología | Versión | Propósito |
+|-----------|---------|-----------|
+| **React Query** | 3.39.3 | Estado del servidor y cache |
+| **Axios** | 1.6.2 | Cliente HTTP |
+| **Context API** | (React) | Estado global (tema) |
+
+### Visualización
+
+| Tecnología | Versión | Propósito |
+|-----------|---------|-----------|
+| **Recharts** | 2.10.3 | Gráficos interactivos |
+| **react-wordcloud** | 1.2.7 | Nube de palabras |
+
+### Desarrollo
+
+| Tecnología | Versión | Propósito |
+|-----------|---------|-----------|
+| **ESLint** | 8.55.0 | Linting |
+| **TypeScript ESLint** | 6.14.0 | Reglas TypeScript |
+
+---
+
+## 🚀 Inicio Rápido
+
+### Prerrequisitos
+
+Asegúrate de tener instalado:
+
+- **Node.js** 16.x o superior ([Descargar](https://nodejs.org/))
+- **npm** 7.x o superior (incluido con Node.js)
+- **Backend API** corriendo en `http://localhost:8001`
+
+### Instalación
+
 ```bash
-git clone <repository-url>
+# 1. Clonar el repositorio
+git clone https://github.com/christianpm-gh/SentimentInsightUAM_DASHBOARD.git
 cd SentimentInsightUAM_DASHBOARD
-```
 
-2. Install dependencies:
-```bash
-npm install
-```
+# 2. Instalar dependencias (usar --legacy-peer-deps por react-wordcloud)
+npm install --legacy-peer-deps
 
-3. Create a `.env` file based on `.env.example`:
-```bash
+# 3. Configurar variables de entorno
 cp .env.example .env
+
+# 4. Editar .env y ajustar la URL del backend si es necesario
+# VITE_API_BASE_URL=http://localhost:8001
 ```
 
-4. Configure the API endpoint in `.env` if needed:
-```
-VITE_API_BASE_URL=http://localhost:8001
-```
+### Desarrollo
 
-## Development
-
-Start the development server:
 ```bash
+# Iniciar servidor de desarrollo
 npm run dev
+
+# La aplicación estará disponible en http://localhost:5173
 ```
 
-The application will be available at `http://localhost:3000`
+### Build de Producción
 
-## Building for Production
-
-Build the application:
 ```bash
+# Compilar para producción
 npm run build
-```
 
-Preview the production build:
-```bash
+# Vista previa del build
 npm run preview
 ```
 
-## Project Structure
+---
+
+## 📚 Documentación
+
+La documentación completa está organizada en los siguientes archivos:
+
+### Documentación Principal
+
+- **[README.md](./README.md)** - Este archivo (visión general)
+- **[CHANGELOG.md](./CHANGELOG.md)** - Historial de cambios y versiones
+- **[CONTRIBUTING.md](./CONTRIBUTING.md)** - Guía de contribución
+
+### Documentación Técnica
+
+- **[docs/SETUP.md](./docs/SETUP.md)** - Guía de setup completo
+  - Requisitos del sistema
+  - Instalación de prerrequisitos (Node.js, Git, etc.)
+  - Configuración del backend
+  - Configuración del dashboard
+  - Verificación del setup
+  - Problemas comunes y soluciones
+
+- **[docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)** - Arquitectura del sistema
+  - Visión general del ecosistema
+  - Diagrama de capas y componentes
+  - Flujo de datos
+  - Patrones de diseño
+  - Decisiones arquitectónicas
+
+- **[docs/DEVELOPMENT.md](./docs/DEVELOPMENT.md)** - Guía de desarrollo
+  - Configuración del entorno
+  - Comandos comunes
+  - Convenciones de código
+  - Workflows de desarrollo
+  - Debugging y testing
+  - Solución de problemas
+
+- **[docs/API_INTEGRATION.md](./docs/API_INTEGRATION.md)** - Integración con la API
+  - Endpoints disponibles
+  - Hooks de React Query
+  - Flujos de datos
+  - Manejo de errores
+  - Caché y optimización
+
+- **[docs/WORKFLOWS.md](./docs/WORKFLOWS.md)** - Flujos críticos del sistema
+  - Flujo de inicialización
+  - Flujo de filtrado jerárquico
+  - Flujo de obtención de métricas
+  - Flujo de cambio de tema
+  - Flujo de manejo de errores
+  - Flujo de cache de datos
+
+### Documentación para IA
+
+- **[COPILOT_INSTRUCTIONS.md](./COPILOT_INSTRUCTIONS.md)** - Instrucciones para GitHub Copilot
+
+---
+
+## 📁 Estructura del Proyecto
 
 ```
-src/
-├── api/
-│   └── client.ts          # Axios API client configuration
-├── components/
-│   ├── KPICards.tsx       # Summary statistics cards
-│   ├── ScopeSelector.tsx  # Filter controls
-│   ├── SentimentPie.tsx   # Pie chart for sentiment distribution
-│   ├── TrendChart.tsx     # Line chart for trends over time
-│   └── WordCloudComp.tsx  # Word cloud visualization
-├── hooks/
-│   └── useMetrics.ts      # React Query hook for fetching metrics
-├── styles/
-│   └── index.css          # Global styles and Tailwind imports
-├── types.ts               # TypeScript type definitions
-├── App.tsx                # Main application component
-└── main.tsx               # Application entry point
+SentimentInsightUAM_DASHBOARD/
+│
+├── docs/                      # 📚 Documentación detallada
+│   ├── ARCHITECTURE.md        # Arquitectura del sistema
+│   ├── DEVELOPMENT.md         # Guía de desarrollo
+│   └── API_INTEGRATION.md     # Integración con API
+│
+├── src/                       # 💻 Código fuente
+│   ├── api/                   # 🔌 Cliente API
+│   │   └── client.ts         # Configuración Axios
+│   │
+│   ├── components/            # 🎨 Componentes React
+│   │   ├── KPICards.tsx      # Tarjetas de métricas
+│   │   ├── ScopeSelector.tsx # Filtros jerárquicos
+│   │   ├── SentimentPie.tsx  # Gráfico circular
+│   │   ├── CategoryPies.tsx  # Gráficos de categorías
+│   │   ├── TrendChart.tsx    # Gráfico de tendencias
+│   │   ├── WordCloudComp.tsx # Nube de palabras
+│   │   └── ThemeToggle.tsx   # Toggle de tema
+│   │
+│   ├── context/               # 🌍 Contextos React
+│   │   └── ThemeContext.tsx  # Proveedor de tema
+│   │
+│   ├── hooks/                 # 🎣 Custom hooks
+│   │   ├── useMetrics.ts     # Hook de métricas
+│   │   └── useCatalog.ts     # Hook de catálogos
+│   │
+│   ├── styles/                # 🎨 Estilos globales
+│   │   └── index.css         # CSS global + Tailwind
+│   │
+│   ├── types.ts               # 📝 Definiciones TypeScript
+│   ├── App.tsx                # 🏠 Componente raíz
+│   ├── main.tsx               # 🚪 Punto de entrada
+│   └── vite-env.d.ts          # 🔧 Tipos de Vite
+│
+├── .env.example               # 📋 Variables de entorno ejemplo
+├── .eslintrc.cjs              # ⚙️ Configuración ESLint
+├── .gitignore                 # 🚫 Archivos ignorados
+├── CHANGELOG.md               # 📜 Historial de cambios
+├── CONTRIBUTING.md            # 🤝 Guía de contribución
+├── COPILOT_INSTRUCTIONS.md    # 🤖 Instrucciones para IA
+├── package.json               # 📦 Dependencias y scripts
+├── postcss.config.cjs         # ⚙️ Configuración PostCSS
+├── tailwind.config.cjs        # ⚙️ Configuración Tailwind
+├── tsconfig.json              # ⚙️ Configuración TypeScript
+├── vite.config.ts             # ⚙️ Configuración Vite
+└── README.md                  # 📖 Este archivo
 ```
 
-## API Integration
+---
 
-The dashboard consumes the following endpoint from the SentimentInsightUAM API:
+## 📜 Scripts Disponibles
 
-- `GET /api/dashboard/metrics?scope={scope}&value={value}`
-  - Query parameters:
-    - `scope` (optional): "department", "professor", or "course"
-    - `value` (optional): The filter value
+```bash
+# Desarrollo
+npm run dev          # Iniciar servidor de desarrollo (puerto 5173)
 
-Expected response format:
+# Linting
+npm run lint         # Ejecutar ESLint
+npm run lint -- --fix # Ejecutar ESLint con auto-corrección
+
+# Build
+npm run build        # Compilar para producción (output: dist/)
+npm run preview      # Vista previa del build de producción
+```
+
+### Ejemplos de Uso
+
+```bash
+# Desarrollo en puerto personalizado
+npm run dev -- --port 3000
+
+# Desarrollo con exposición en red local
+npm run dev -- --host
+
+# Build con análisis detallado
+npm run build -- --mode production
+```
+
+---
+
+## ⚙️ Configuración
+
+### Variables de Entorno
+
+Crea un archivo `.env` en la raíz del proyecto:
+
+```bash
+# URL del backend API
+VITE_API_BASE_URL=http://localhost:8001
+```
+
+**Nota:** Las variables deben tener prefijo `VITE_` para ser expuestas al cliente.
+
+### Configuración de Tailwind
+
+La paleta de colores y configuración de tema se encuentra en `tailwind.config.cjs`:
+
+```javascript
+// Colores personalizados
+colors: {
+  primary: { /* Azul */ },
+  accent: { /* Púrpura */ },
+  success: { /* Verde */ },
+  warning: { /* Amarillo */ },
+  danger: { /* Rojo */ },
+  dark: { /* Grises */ }
+}
+
+// Dark mode
+darkMode: 'class'
+```
+
+### Configuración de TypeScript
+
+Configuración estricta en `tsconfig.json`:
+
 ```json
 {
-  "total_comments": 1000,
-  "average_sentiment_score": 0.45,
-  "sentiment_distribution": [
-    { "sentiment": "positive", "count": 500 },
-    { "sentiment": "neutral", "count": 300 },
-    { "sentiment": "negative", "count": 200 }
-  ],
-  "sentiment_trends": [
-    { "date": "2024-01", "positive": 50, "neutral": 30, "negative": 20 }
-  ],
-  "top_words": [
-    { "text": "excellent", "value": 45 },
-    { "text": "good", "value": 30 }
-  ]
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true
+  }
 }
 ```
 
-## Contributing
+---
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
+## 🤝 Contribuir
 
-## License
+¡Las contribuciones son bienvenidas! Por favor lee la [Guía de Contribución](./CONTRIBUTING.md) para detalles sobre:
 
-MIT
+- Código de conducta
+- Proceso de desarrollo
+- Estándares de código
+- Proceso de Pull Request
+- Reporte de bugs
+- Solicitud de funcionalidades
+
+### Flujo de Contribución Rápido
+
+```bash
+# 1. Fork y clonar
+git clone https://github.com/TU_USUARIO/SentimentInsightUAM_DASHBOARD.git
+
+# 2. Crear rama
+git checkout -b feature/nueva-funcionalidad
+
+# 3. Hacer cambios y commits
+git commit -m "feat: descripción de la funcionalidad"
+
+# 4. Push
+git push origin feature/nueva-funcionalidad
+
+# 5. Crear Pull Request en GitHub
+```
+
+---
+
+## 📝 Licencia
+
+Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
+
+---
+
+## 👥 Autores y Reconocimientos
+
+**Desarrollado con ❤️ para la Universidad Autónoma Metropolitana**
+
+- Proyecto desarrollado como herramienta de análisis de sentimientos para la mejora continua de la calidad educativa
+- Powered by React, TypeScript, y FastAPI
+
+---
+
+## 📞 Soporte y Contacto
+
+- **Issues**: [GitHub Issues](https://github.com/christianpm-gh/SentimentInsightUAM_DASHBOARD/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/christianpm-gh/SentimentInsightUAM_DASHBOARD/discussions)
+
+---
+
+## 🔗 Enlaces Útiles
+
+### Repositorios del Ecosistema
+- Backend API: [SentimentInsightUAM](https://github.com/christianpm-gh/SentimentInsightUAM)
+- Scraper: SentimentInsightUAM_SCRAPER (próximamente)
+- NLP: SentimentInsightUAM_NLP (próximamente)
+
+### Tecnologías
+- [React Documentation](https://react.dev/)
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
+- [Vite Guide](https://vitejs.dev/guide/)
+- [Tailwind CSS Docs](https://tailwindcss.com/docs)
+- [React Query Docs](https://tanstack.com/query/v3/docs)
+- [Recharts Documentation](https://recharts.org/)
+
+---
+
+**¿Tienes preguntas o sugerencias?** No dudes en abrir un [issue](https://github.com/christianpm-gh/SentimentInsightUAM_DASHBOARD/issues) o iniciar una [discusión](https://github.com/christianpm-gh/SentimentInsightUAM_DASHBOARD/discussions).
+
+---
+
+<div align="center">
+
+**SentimentInsight UAM Dashboard v1.0.0**
+
+Análisis de Sentimientos para la Mejora Continua Educativa
+
+</div>
